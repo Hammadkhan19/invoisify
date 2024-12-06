@@ -32,11 +32,16 @@ app.use(
     credentials: true
   })
 );
+
 app.use(express.json());
 // Static folder for uploaded images
 app.use("/uploads", express.static("uploads"));
 
 // Routes
+
+app.get("/", (req, res) => {
+  res.status(200).send("Backend is running successfully.");
+});
 
 app.use(authRoutes);
 app.use(invoicesRoutes);
