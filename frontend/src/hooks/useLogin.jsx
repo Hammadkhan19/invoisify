@@ -6,14 +6,14 @@ export const useLogin = () => {
   const [error, setError] = useState(null);
   const { dispatch } = useContext(AuthContext);
 
-
+  const Base_URL = import.meta.env.VITE_API_URL;
 
   const login = async (email, password) => {
     setIsLoading(true);
     setError(null);
 
     try {
-      const response = await fetch("http://localhost:3000/login", {
+      const response = await fetch(`${Base_URL}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }), // Corrected JSON.stringify
@@ -40,5 +40,5 @@ export const useLogin = () => {
     }
   };
 
-  return {  login,  isLoading, error }; // Ensure all returned variables are correctly named
+  return { login, isLoading, error }; // Ensure all returned variables are correctly named
 };

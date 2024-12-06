@@ -9,7 +9,7 @@ const InvoiceDetails = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  const Base_URL = import.meta.env.VITE_API_URL;
   useEffect(() => {
     if (authLoading || !user?.token) return;
 
@@ -17,7 +17,7 @@ const InvoiceDetails = () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch(`http://localhost:3000/invoices/${id}`, {
+        const response = await fetch(`${Base_URL}/invoices/${id}`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${user.token}`,

@@ -8,7 +8,7 @@ const Invoice1 = ({ onAddInvoice }) => {
   const { selectedInvoice, isEditMode, updateInvoiceData, stopEditingInvoice } =
     useInvoiceContext();
   const userId = user?.userID || "undifined";
-
+  const Base_URL = import.meta.env.VITE_API_URL;
   const [invoice, setInvoice] = useState({
     company: { name: "", address: "", city: "", country: "" },
     client: { companyName: "", address: "", city: "", country: "" },
@@ -42,10 +42,9 @@ const Invoice1 = ({ onAddInvoice }) => {
       });
     }
   }, [isEditMode, selectedInvoice]);
-  const { fetchData, loading, error } = useFetch(
-    "http://localhost:3000/invoices",
-    { method: "POST" }
-  );
+  const { fetchData, loading, error } = useFetch(`${Base_URL}/invoices`, {
+    method: "POST",
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;

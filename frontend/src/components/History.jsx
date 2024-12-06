@@ -10,7 +10,7 @@ const InvoiceHistory = ({ invoices, loading, error, fetchInvoices }) => {
   const token = user?.token;
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
-
+  const Base_URL = import.meta.env.VITE_API_URL;
   const handleDelete = async (_id) => {
     const isConfirmed = window.confirm(
       "Are you sure you want to delete this invoice?"
@@ -18,7 +18,7 @@ const InvoiceHistory = ({ invoices, loading, error, fetchInvoices }) => {
 
     if (isConfirmed) {
       try {
-        const response = await fetch(`http://localhost:3000/invoices/${_id}`, {
+        const response = await fetch(`${Base_URL}/invoices/${_id}`, {
           method: "DELETE",
           headers: {
             Authorization: `Bearer ${token}`,
