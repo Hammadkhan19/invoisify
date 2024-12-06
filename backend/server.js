@@ -8,7 +8,30 @@ const port = 3000;
 require("./db/db");
 
 // middlewares
-app.use(cors());
+
+const allowedOrigins = [
+  "https://invoisify.vercel.app", // Production URL
+  "http://localhost:5173"        // Local development URL
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or Postman)
+      if (!origin) return callback(null, true);
+
+      // Check if the origin is in the allowed list
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      // If origin is not allowed
+      return callback(new Error("Not allowed by CORS"));
+    },
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+  })
+);
 app.use(express.json());
 // Static folder for uploaded images
 app.use("/uploads", express.static("uploads"));
